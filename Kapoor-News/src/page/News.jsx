@@ -18,9 +18,8 @@ if(loading) return <Loader className={'w-fit m-auto py-24 mb-32'} />
 
   return (
     <Wraper>
-      
       <div
-        className={`grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6 ${className}`}
+        className={`grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6 mx-4 my-4 sm:mx-0 sm:my-0 ${className}`}
       >
         {news.map((newsDetails, idx) => {
           if (!newsDetails.urlToImage) {
