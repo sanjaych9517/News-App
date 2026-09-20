@@ -1,9 +1,10 @@
 import { useEffect } from "react";
 import Wraper from "../component/Wraper";
 import { useNewsContext } from "../context/NewsContext";
+import Loader from '../component/Loader'
 
 const News = ({ className }) => {
-  const { news, setNews, fetchNews } = useNewsContext();
+  const { news, setNews, fetchNews, loading } = useNewsContext();
 
   // load data on initial render
   useEffect(() => {
@@ -13,9 +14,14 @@ const News = ({ className }) => {
     })();
   }, []);
 
+if(loading) return <Loader className={'w-fit m-auto py-24 mb-32'} />
+
   return (
     <Wraper>
-      <div className={`grid grid-cols-4 gap-8 ${className}`}>
+      
+      <div
+        className={`grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6 ${className}`}
+      >
         {news.map((newsDetails, idx) => {
           if (!newsDetails.urlToImage) {
             return null;

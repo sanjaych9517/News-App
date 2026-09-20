@@ -5,7 +5,7 @@ const Footer = () => {
   return (
     <div className="bg-base-200 ">
       <Wraper>
-        <footer className="footer sm:footer-horizontal text-base-content p-10">
+        <footer className="footer sm:footer-horizontal text-base-content p-10 justify-center">
           <nav>
             <h6 className="footer-title">Services</h6>
             <a className="link link-hover">Branding</a>
