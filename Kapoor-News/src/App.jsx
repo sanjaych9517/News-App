@@ -4,6 +4,7 @@ import Navbar from "./component/Navbar";
 import News from "./page/News";
 
 function App() {
+
   return (
     <>
       <Navbar className={"sticky top-0 z-20"} />

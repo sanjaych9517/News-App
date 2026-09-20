@@ -1,41 +1,51 @@
-import React from "react";
+import { useEffect } from "react";
 import Wraper from "../component/Wraper";
+import { useNewsContext } from "../context/NewsContext";
 
-const News = ({className}) => {
+const News = ({ className }) => {
+  const { news, setNews, fetchNews } = useNewsContext();
+
+  // load data on initial render
+  useEffect(() => {
+    (async () => {
+      const data = await fetchNews();
+      setNews(data.articles);
+    })();
+  }, []);
+
   return (
     <Wraper>
       <div className={`grid grid-cols-4 gap-8 ${className}`}>
-        <NewsCard />
-        <NewsCard />
-        <NewsCard />
-        <NewsCard />
-        <NewsCard />
-        <NewsCard />
-        <NewsCard />
-        <NewsCard />
-        <NewsCard />
+        {news.map((newsDetails, idx) => {
+          if (!newsDetails.urlToImage) {
+            return null;
+          }
+
+          return <NewsCard key={idx} details={newsDetails} />;
+        })}
       </div>
     </Wraper>
   );
 };
 
-const NewsCard = () => {
+const NewsCard = ({ details }) => {
   return (
     <div className="card bg-base-300  shadow-sm">
       <figure>
         <img
-          src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
-          alt="Shoes"
+          className="aspect-video object-contain w-full"
+          src={details?.urlToImage}
+          alt=""
         />
       </figure>
       <div className="card-body">
-        <h2 className="card-title">Card Title</h2>
-        <p>
-          A card component has a figure, a body part, and inside body there are
-          title and actions parts
-        </p>
-        <div className="card-actions justify-end">
-          <button className="btn btn-primary">Buy Now</button>
+        <h2 className="card-title line-clamp-2">{details?.title}</h2>
+        <p className="line-clamp-3">{details.description}</p>
+        <div
+          onClick={() => window.open(details.url)}
+          className="card-actions justify-end"
+        >
+          <button className="btn btn-dash mt-4">Read More..</button>
         </div>
       </div>
     </div>

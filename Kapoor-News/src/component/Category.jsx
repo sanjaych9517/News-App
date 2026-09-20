@@ -1,7 +1,10 @@
 import React from "react";
 import Wraper from "./Wraper";
+import { useNewsContext } from "../context/NewsContext";
 
-const Category = ({className}) => {
+const Category = ({ className }) => {
+  const { setNews, fetchNews } = useNewsContext();
+
   const categories = [
     "business",
     "science",
@@ -12,6 +15,13 @@ const Category = ({className}) => {
     "echnology",
   ];
 
+  const handleClick = async (e) => {
+    const cat = e.target.value;
+    const data = await fetchNews(`/everything?q=${cat}`);
+
+    setNews(data.articles);
+  };
+
   return (
     <div className={`${className}`}>
       <Wraper>
@@ -20,7 +30,12 @@ const Category = ({className}) => {
         >
           {categories.map((category) => {
             return (
-              <button key={category} className="btn btn-primary">
+              <button
+                onClick={handleClick}
+                key={category}
+                value={category}
+                className="btn btn-primary"
+              >
                 {category}
               </button>
             );
